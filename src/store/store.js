@@ -6,14 +6,19 @@ export const store = new Vuex.Store({
     todos: [],
     title: null
   },
+  actions: {
+    saveToDo(context, todo) {
+      todo.done = false;
+      context.commit('saveTodo', todo);
+    }
+  },
+  
   mutations: {
-    saveTodo: state =>{
+    saveTodo: (state, todo) =>{
       if(!state.todos) { state.todos = []; }
-      state.todos.push({
-        title: state.title,
-        done: false
-    });
-    state.title = "";
+      //Create another Mutation for the above line
+      state.todos.push(todo);
+    state.title = ""; //For this also - another Mutation ... only one change in one mutation
     localStorage.setItem("todos", JSON.stringify(this.todos));
   },
   completeTask: (state, index)=> {
